@@ -1,0 +1,14 @@
+{
+    "$schema": "./node_modules/wrangler/config-schema.json",
+    "assets": {
+        "directory": "./dist"
+    },
+    "compatibility_date": "2026-06-23",
+    "name": "a",
+    "routes": [
+        {
+            "custom_domain": true,
+            "pattern": "cark.moe"
+        },
+    ]
+}
