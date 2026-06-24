@@ -1,2 +1,8 @@
-node_modules/
+/target
+
+.bin/
+
+.direnv/
+
 .wrangler/
+node_modules/

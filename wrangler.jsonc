@@ -1,14 +1,18 @@
 {
     "$schema": "./node_modules/wrangler/config-schema.json",
-    "assets": {
-        "directory": "./dist"
-    },
     "compatibility_date": "2026-06-23",
     "name": "a",
+    "main": "build/index.js",
+    "assets": {
+        "directory": "./pub"
+    },
     "routes": [
         {
             "custom_domain": true,
             "pattern": "cark.moe"
         },
-    ]
+    ],
+    "build": {
+        "command": "cargo bin worker-build --release"
+    }
 }
