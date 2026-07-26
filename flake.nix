@@ -44,7 +44,6 @@
             with pkgs;
             mkShell {
               packages = [
-                cargo-run-bin
                 just
                 openssl
                 pnpm
@@ -52,6 +51,7 @@
                 (rust-bin.stable.latest.default.override {
                   targets = [ "wasm32-unknown-unknown" ];
                 })
+                worker-build
               ];
 
               shellHook = ''

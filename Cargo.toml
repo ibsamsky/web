@@ -7,7 +7,7 @@ edition = "2024"
 crate-type = ["cdylib"]
 
 [dependencies]
-bstr = "1.12.1"
+bstr = "1.13.0"
 maud = "0.27.0"
 worker = "0.8.5"
 
@@ -15,6 +15,3 @@ worker = "0.8.5"
 lto = true
 codegen-units = 1
 strip = "debuginfo"
-
-[package.metadata.bin]
-worker-build.version = "0.8.5"

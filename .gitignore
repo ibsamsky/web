@@ -1,7 +1,5 @@
 /target
 
-.bin/
-
 .direnv/
 
 .wrangler/
