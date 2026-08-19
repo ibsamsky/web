@@ -56,7 +56,7 @@
 
               shellHook = ''
                 # override any external flags set by .cargo/config.toml, etc. to avoid build errors
-                export RUSTFLAGS=""
+                unset RUSTFLAGS
               '';
             };
         }
