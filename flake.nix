@@ -1,66 +1,56 @@
 {
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+
+    flake-parts.url = "github:hercules-ci/flake-parts";
     rust-overlay = {
       url = "github:oxalica/rust-overlay";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    treefmt-nix.url = "github:numtide/treefmt-nix";
   };
 
   outputs =
-    {
-      nixpkgs,
-      rust-overlay,
-      ...
-    }:
-    let
-      inherit (nixpkgs) lib;
+    inputs:
+    inputs.flake-parts.lib.mkFlake { inherit inputs; } {
+      imports = [ inputs.treefmt-nix.flakeModule ];
 
-      supportedSystems = [
+      systems = [
         "x86_64-linux"
         "aarch64-linux"
       ];
 
-      forEachSupportedSystem =
-        f:
-        lib.genAttrs supportedSystems (
-          system:
-          let
-            overlays = [ (import rust-overlay) ];
-            pkgs = import nixpkgs {
-              inherit system overlays;
-            };
-          in
-          f {
-            inherit system pkgs;
-          }
-        );
-    in
-    {
-      devShells = forEachSupportedSystem (
-        { pkgs, ... }:
-        {
-          default =
-            with pkgs;
-            mkShell {
-              packages = [
-                just
-                openssl
-                pnpm
-                pkg-config
-                (rust-bin.stable.latest.default.override {
-                  targets = [ "wasm32-unknown-unknown" ];
-                })
-                worker-build
-              ];
+      perSystem = { system, pkgs, ... }: {
+        _module.args.pkgs = import inputs.nixpkgs {
+          inherit system;
+          overlays = [ inputs.rust-overlay.overlays.default ];
+        };
 
-              shellHook = ''
-                # override any external flags set by .cargo/config.toml, etc. to avoid build errors
-                unset RUSTFLAGS
-              '';
-            };
-        }
-      );
+        devShells.default = pkgs.mkShell {
+          packages = with pkgs; [
+            just
+            openssl
+            pnpm
+            pkg-config
+            (rust-bin.stable.latest.default.override { targets = [ "wasm32-unknown-unknown" ]; })
+            worker-build
+          ];
 
+          shellHook = ''
+            # override any external flags set by .cargo/config.toml, etc. to avoid build errors
+            export RUSTFLAGS=""
+          '';
+        };
+
+        treefmt.programs = {
+          nixfmt = {
+            enable = true;
+            strict = true;
+          };
+
+          oxfmt.enable = true;
+          rustfmt.enable = true;
+        };
+      };
     };
 }

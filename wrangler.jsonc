@@ -1,18 +1,18 @@
 {
-    "$schema": "./node_modules/wrangler/config-schema.json",
-    "compatibility_date": "2026-06-23",
-    "name": "dumb",
-    "main": "build/index.js",
-    "assets": {
-        "directory": "./pub"
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "compatibility_date": "2026-06-23",
+  "name": "dumb",
+  "main": "build/index.js",
+  "assets": {
+    "directory": "./static",
+  },
+  "routes": [
+    {
+      "custom_domain": true,
+      "pattern": "cark.moe",
     },
-    "routes": [
-        {
-            "custom_domain": true,
-            "pattern": "cark.moe"
-        },
-    ],
-    "build": {
-        "command": "worker-build --release"
-    }
+  ],
+  "build": {
+    "command": "worker-build --release",
+  },
 }

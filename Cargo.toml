@@ -7,7 +7,7 @@ edition = "2024"
 crate-type = ["cdylib"]
 
 [dependencies]
-bstr = "1.13.0"
+bstr = "1.13.1"
 maud = "0.27.0"
 worker = "0.8.5"
 
