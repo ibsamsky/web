@@ -29,6 +29,7 @@
         devShells.default = pkgs.mkShell {
           packages = with pkgs; [
             just
+            nodejs-slim
             openssl
             pnpm
             pkg-config
@@ -37,7 +38,7 @@
           ];
 
           # override any external flags set by .cargo/config.toml, etc. to avoid build errors
-          RUSTFLAGS = null;
+          RUSTFLAGS = "";
         };
 
         treefmt.programs = {
