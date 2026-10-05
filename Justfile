@@ -1,10 +1,8 @@
-pnx := "pnx --allow-build esbuild --allow-build workerd"
-
 build:
-    {{ pnx }} wrangler build
+    wrangler build
 
 deploy:
-    {{ pnx }} wrangler deploy
+    wrangler deploy
 
 dev:
-    {{ pnx }} wrangler dev
+    wrangler dev

@@ -1,6 +1,6 @@
 {
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+    nixpkgs.url = "https://channels.nixos.org/nixpkgs-unstable/nixexprs.tar.zst";
 
     flake-parts.url = "github:hercules-ci/flake-parts";
     rust-overlay = {
@@ -29,12 +29,9 @@
         devShells.default = pkgs.mkShell {
           packages = with pkgs; [
             just
-            nodejs-slim
-            openssl
-            pnpm
-            pkg-config
             (rust-bin.stable.latest.default.override { targets = [ "wasm32-unknown-unknown" ]; })
             worker-build
+            wrangler
           ];
 
           # override any external flags set by .cargo/config.toml, etc. to avoid build errors
