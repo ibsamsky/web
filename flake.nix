@@ -39,13 +39,14 @@
         };
 
         treefmt.programs = {
+          actionlint.enable = true;
           nixfmt = {
             enable = true;
             strict = true;
           };
-
           oxfmt.enable = true;
           rustfmt.enable = true;
+          zizmor.enable = true;
         };
       };
     };
