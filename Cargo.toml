@@ -9,7 +9,7 @@ crate-type = ["cdylib"]
 [dependencies]
 bstr = "1.13.1"
 maud = "0.27.0"
-worker = "0.8.5"
+worker = "0.8.7"
 
 [profile.release]
 lto = true
